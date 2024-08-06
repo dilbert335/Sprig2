@@ -1,12 +1,3 @@
-/*
-First time? Check out the tutorial game:s
-https://sprig.hackclub.com/gallery/getting_started
-
-@title: GRAMPERS COMES CALLING
-@author: 
-@tags: []
-@addedOn: 2024-00-00
-*/
 
 const player = "p"
 const grampers = "g"
@@ -42,7 +33,7 @@ setLegend(
 ......CCCC......
 ....F0CCCC0D....
 .CCCD0DFDF0FCCC.
-.C..F000000D.000
+.C..F0FDFD0D.000
 .C..D0DFDF0F.0C0
 .C..F0FDFD0D.0.0
 ....00000000.0.0
@@ -51,38 +42,38 @@ setLegend(
 ..555550055555..` ],
   [wall,bitmap`
 3333333333333333
-0333333033333333
-0333330033333303
-0033300003333303
-0000030003333303
-0000000000000003
-3330000030000003
-0000000000003003
-0030000000030003
-0000000300300003
-0003333000000000
-0030003030000300
-3000000000003300
-0000000000000000
-0000000033000030
-0000000000000000`],
+3333333333333333
+3333333333333333
+3333333333333333
+3333333333333333
+3333333333333333
+3333333333333333
+3333333333333333
+3333333333333333
+3333333333333333
+3333333333333333
+3333333333333333
+3333333333333333
+3333333333333333
+3333333333333333
+3333333333333333`],
   [bg,bitmap`
-................
-................
-.....3.....3....
-..3...........3.
-................
-........3..3....
-....3...........
-..3.............
-.......3......3.
-................
-..3..3....3.....
-................
-................
-.......3........
-..3.........3...
-................`],
+1111111111111111
+1111111111111111
+1111111111111111
+1111111111111111
+1111111111111111
+1111111111111111
+1111111111111111
+1111111111111111
+1111111111111111
+1111111111111111
+1111111111111111
+1111111111111111
+1111111111111111
+1111111111111111
+1111111111111111
+1111111111111111`],
 )
 // Set the background using the bg bitmap key
 setBackground(bg)
@@ -120,10 +111,84 @@ setPushables({
   [ player ]: []
 })
 
+onInput("w", () => {
+  getFirst(player).y -= 1; // Move the player one tile up
+})
+onInput("a", () => {
+  getFirst(player).x -= 1; // Move the player one to the tile left
+})
+onInput("d", () => {
+  getFirst(player).x += 1; // Move the player one tile to the right
+})
 onInput("s", () => {
-  getFirst(player).y += 1
+  getFirst(player).y += 1; // Move player one tile down
 })
 
 afterInput(() => {
   
 })
+// Define the speed of Grampers (in milliseconds)
+const grampersSpeed = 500; // This value determines how fast Grampers moves (lower is faster)
+let chasingTime = 0;
+
+// Function to handle the chasing behavior with speed control
+const chasePlayerWithSpeed = () => {
+  if (chasingTime < 60) {
+    const playerSprite = getFirst(player);
+    const grampersSprite = getFirst(grampers);
+
+    // Logic to chase the player (Example: move vertically towards the player)
+    if (playerSprite.y < grampersSprite.y) {
+      grampersSprite.y -= 1; // Move up towards the player
+    } else if (playerSprite.y > grampersSprite.y) {
+      grampersSprite.y += 1; // Move down towards the player
+    }
+
+    if (playerSprite.x < grampersSprite.x) {
+      grampersSprite.x -= 1;
+    } else if (playerSprite.x > grampersSprite.x) {
+      grampersSprite.x += 1;
+    }
+
+    chasingTime++;
+
+    // Call chasePlayerWithSpeed function recursively after the specified speed for smooth movement
+    setTimeout(chasePlayerWithSpeed, grampersSpeed); // Move at the specified speed
+  }
+}
+
+// Start the chasePlayerWithSpeed function with speed control
+chasePlayerWithSpeed();
+
+// Define a variable to track the chasing time
+
+// Function to handle the chasing behavior
+const chasePlayer = () => {
+  // Check if the chasing time is less than 60 seconds (1 minute)
+  if (chasingTime < 60) {
+    const playerSprite = getFirst(player);
+    const grampersSprite = getFirst(grampers);
+
+    // Logic to chase the player (Example: move vertically towards the player)
+    if (playerSprite.y < grampersSprite.y) {
+      grampersSprite.y -= 1; // Move up towards the player
+    } else if (playerSprite.y > grampersSprite.y) {
+      grampersSprite.y += 1; // Move down towards the player
+    }
+
+    if (playerSprite.x < grampersSprite.x) {
+      grampersSprite.x -= 1;
+    } else if (playerSprite.y > grampersSprite.x) {
+      grampersSprite.x += 1;
+    }
+
+    // Increment the chasing time by 1 second
+    chasingTime++;
+
+    // Call chasePlayer function recursively after a short delay for smooth movement
+    setTimeout(chasePlayer, 1000); // Move every 1 second
+  }
+}
+
+// Start the chasePlayer function to initiate the chasing
+chasePlayer();
