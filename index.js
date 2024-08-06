@@ -140,6 +140,58 @@ ww.....w.w
 w..w....ww
 ww...w..tw
 wwwwwwwwww`,
+  map`
+wwwwwwwwww
+wp.......w
+w...w.ww.w
+wwwww.ww.w
+w.....ww.w
+wwwww.ww.w
+w........w
+w.wwwwwwww
+w..g.....w
+wwwww.ww.w
+wwwww.ww.w
+wwwww.ww.w
+wwwww.ww.w
+wwwww.ww.w
+wwwww.ww.w
+..t......w`,
+  map`
+wwwwwwwww......wwwwwwww
+wwwwwwww..wwwwwww..twww
+wwwww......w....w..wwww
+wwwww..w.www....w....w.
+www...ww.......wwwww...
+www.......wwwwww.w.ww.w
+www.wwwwwww...........w
+www.wwwwwwwww.w..w.wwww
+wp.......wwww.wwww.w.w.
+www...w.wwwww......w.w.
+w.g....w......wwww.w...
+w.ww..w.....w.w......w.
+w..w.w...w..w.w.w.ww.w.
+ww.....w.wwww.w.w.ww.w.
+w..w....ww....w.w....w.
+ww...w...w.wwww.wwwwww.
+wwwwwwwwww.............`,
+  map`
+.p.wwwwww
+.w.wwwwww
+...wwwwww
+.w.wwwwww
+.gwwwwwww
+.w.wwwwww
+.w.wwwwww
+.w.wwwwww
+...wwwwww
+.w.wwwwww
+...wwwwww
+.w.wwwwww
+...wwwwww
+.w.wwwwww
+.w.wwwwww
+.w......t`,
 ]
 
 
@@ -147,6 +199,7 @@ wwwwwwwwww`,
 // Function to check if player touches the next level trigger tile
 const playerTouchesNextLevelTile = (trigger) => {
   const playerSprite = getFirst(player);
+  if (!playerSprite) {return}
   // Check if the player sprite's position overlaps with the trigger tile
   const triggerTile = getTile(playerSprite.x, playerSprite.y);
   if (triggerTile.some(sprite => sprite.type === "trigger")) {
