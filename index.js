@@ -1,9 +1,18 @@
+/*
+First time? Check out the tutorial game:s
+https://sprig.hackclub.com/gallery/getting_started
+
+@title: GRAMPERS COMES CALLING
+@author: 
+@tags: []
+@addedOn: 2024-00-00
+*/
 
 const player = "p"
 const grampers = "g"
 const wall = "w"
 const bg = "b"
-
+const trigger ="t"
 // Set the legand for sprites
 setLegend(
   [player, bitmap`
@@ -58,29 +67,46 @@ setLegend(
 3333333333333333
 3333333333333333`],
   [bg,bitmap`
-1111111111111111
-1111111111111111
-1111111111111111
-1111111111111111
-1111111111111111
-1111111111111111
-1111111111111111
-1111111111111111
-1111111111111111
-1111111111111111
-1111111111111111
-1111111111111111
-1111111111111111
-1111111111111111
-1111111111111111
-1111111111111111`],
+7777777777777777
+7777777777777777
+7777777777777777
+7777777777777777
+7777777777777777
+7777777777777777
+7777777777777777
+7777777777777777
+7777777777777777
+7777777777777777
+7777777777777777
+7777777777777777
+7777777777777777
+7777777777777777
+7777777777777777
+7777777777777777`],
+  [trigger,bitmap`
+CCCCCCCCCCCCCCCC
+C00CCCCCCCCCCCCC
+C0CCCCCC0CC3CC0C
+C00C3C3CCCC3CC0C
+C0CCC3CC0C333CCC
+C00C3C3C0CC3CC0C
+CCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCC
+................
+................
+................
+................
+................
+................
+................
+................`],
 )
 // Set the background using the bg bitmap key
 setBackground(bg)
   
 setSolids([wall,player,grampers])
 
-let level = 0
+let level = 1
 const levels = [
   map`
 wwwwwwwwwwwwwwwwwwww
@@ -101,9 +127,39 @@ w..w...........w...w
 w..........w.w..w..w
 wwww..w.w......wwwww
 w..ww......w...w...w
-w.......w..........w
-wwwwwwwwwwwwwwwwwwww`
+w.......w.........tw
+wwwwwwwwwwwwwwwwwwww`,
+  map`
+wwwwwwwwww
+wp.......w
+www...w.ww
+w.g....w.w
+w.ww..w..w
+w..w.w...w
+ww.....w.w
+w..w....ww
+ww...w..tw
+wwwwwwwwww`,
 ]
+
+
+
+// Function to check if player touches the next level trigger tile
+const playerTouchesNextLevelTile = (trigger) => {
+  const playerSprite = getFirst(player);
+  // Check if the player sprite's position overlaps with the trigger tile
+  const triggerTile = getTile(playerSprite.x, playerSprite.y);
+  if (triggerTile.some(sprite => sprite.type === "trigger")) {
+  
+ return false;
+  }
+}
+
+// Check win condition (example: player touching a specific tile to trigger the next level)
+if (playerTouchesNextLevelTile()) {
+  level++; // Move to the next level
+  setMap(levels[level]); // Load the new level
+};
 
 setMap(levels[level])
 
