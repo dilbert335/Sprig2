@@ -104,7 +104,7 @@ CCCCCCCCCCCCCCCC
 // Set the background using the bg bitmap key
 setBackground(bg)
   
-setSolids([wall,player,grampers])
+setSolids([wall, grampers, player])
 
 let level = 1
 const levels = [
@@ -194,51 +194,50 @@ wwwwwwwwww.............`,
 .w......t`,
 ]
 
+let chasingTime = 0;
 
+const isWithinOnePixel = (x1, y1, x2, y2) => {
+  return Math.abs(x1 - x2) <= 1 && Math.abs(y1 - y2) <= 1;
+};
 
-// Function to check if player touches the next level trigger tile
-const playerTouchesNextLevelTile = (trigger) => {
+const checkTouching = () => {
   const playerSprite = getFirst(player);
   if (!playerSprite) {return}
-  // Check if the player sprite's position overlaps with the trigger tile
-  const triggerTile = getTile(playerSprite.x, playerSprite.y);
-  if (triggerTile.some(sprite => sprite.type === "trigger")) {
+
+  const grampersSprite = getFirst(grampers);
+  const exitSprite = getFirst(trigger);
+
+  if (!grampersSprite || !exitSprite) {return}
+
+  const pX = playerSprite.x
+  const pY = playerSprite.y
   
- return false;
+  if (isWithinOnePixel(pX, pY, grampersSprite.x, grampersSprite.y)) {
+    setMap(levels[level])
+  } else if (pX === exitSprite.x && pY === exitSprite.y) {
+    level++
+    if (levels[level]) {
+      setMap(levels[level])
+    } else {
+      alert("You win");
+    }
   }
 }
 
-// Check win condition (example: player touching a specific tile to trigger the next level)
-if (playerTouchesNextLevelTile()) {
-  level++; // Move to the next level
-  setMap(levels[level]); // Load the new level
-};
-
 setMap(levels[level])
-
 setPushables({
   [ player ]: []
 })
 
-onInput("w", () => {
-  getFirst(player).y -= 1; // Move the player one tile up
-})
-onInput("a", () => {
-  getFirst(player).x -= 1; // Move the player one to the tile left
-})
-onInput("d", () => {
-  getFirst(player).x += 1; // Move the player one tile to the right
-})
-onInput("s", () => {
-  getFirst(player).y += 1; // Move player one tile down
-})
+onInput("w", () => {getFirst(player).y -= 1;})
+onInput("a", () => {getFirst(player).x -= 1;})
+onInput("d", () => {getFirst(player).x += 1;})
+onInput("s", () => {getFirst(player).y += 1;})
 
-afterInput(() => {
-  
-})
+setInterval(checkTouching, 500)
+
 // Define the speed of Grampers (in milliseconds)
 const grampersSpeed = 500; // This value determines how fast Grampers moves (lower is faster)
-let chasingTime = 0;
 
 // Function to handle the chasing behavior with speed control
 const chasePlayerWithSpeed = () => {
@@ -268,8 +267,6 @@ const chasePlayerWithSpeed = () => {
 
 // Start the chasePlayerWithSpeed function with speed control
 chasePlayerWithSpeed();
-
-// Define a variable to track the chasing time
 
 // Function to handle the chasing behavior
 const chasePlayer = () => {
