@@ -2,7 +2,7 @@
 First time? Check out the tutorial game:s
 https://sprig.hackclub.com/gallery/getting_started
 
-@title: GRAMPERS COMES CALLING
+@title: GRAMPERS...THE SLAUGHTER HOUSE
 @author: 
 @tags: []
 @addedOn: 2024-00-00
@@ -270,8 +270,8 @@ chasePlayerWithSpeed();
 
 // Function to handle the chasing behavior
 const chasePlayer = () => {
-  // Check if the chasing time is less than 60 seconds (1 minute)
-  if (chasingTime < 60) {
+  // Check if the chasing time is less than 86,400 seconds ( 1,440 minute)
+  if (chasingTime < 86,400) {
     const playerSprite = getFirst(player);
     const grampersSprite = getFirst(grampers);
 
