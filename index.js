@@ -1,6 +1,4 @@
 /*
-First time? Check out the tutorial game:s
-https://sprig.hackclub.com/gallery/getting_started
 
 @title: GRAMPERS...THE SLAUGHTER HOUSE
 @author: 
@@ -13,26 +11,25 @@ const grampers = "g"
 const wall = "w"
 const bg = "b"
 const trigger ="t"
-const youwin42 = "y"
 // Set the legand for sprites
 setLegend(
   [player, bitmap`
 ................
 ................
-................
-......6.........
-.....333........
-...33333........
-.....0C0........
-.....CCC........
-......6.........
-....C666C99.....
-.....666.99.....
-.....555........
-....9C.C9.......
-................
-................
-................`],
+.......CCCC.....
+....CCCCCCCCC...
+...CC999999CC...
+....99999999C...
+...992799279....
+...999999999....
+....99CCCC99....
+.....999999.....
+.....00000......
+..00000000......
+.....00000000...
+.....0...0......
+.....0...0......
+.....0...0......`],
   [grampers,bitmap`
 ...L...LL...L...
 ..LLCCCCCCCCLL..
@@ -50,7 +47,7 @@ setLegend(
 ....FFF00FFF.0.0
 ....FFF00FFF.000
 ..555550055555..` ],
-  [wall,bitmap`
+  [wall, bitmap`
 3333333333333333
 3333333333333333
 3333333333333333
@@ -101,23 +98,6 @@ CCCCCCCCCCCCCCCC
 ................
 ................
 ................`],
-  [youwin42,bitmap`
-3333333333333333
-3323232223232333
-3322232323232333
-3332332223222333
-3333333333333333
-3233323233222333
-3232323333232333
-3222223233232333
-3333333333333333
-0000000000000000
-0000000000000000
-0000600000060000
-0000000000000000
-0006000000006000
-0006666666666000
-0000000000000000`],
 )
 // Set the background using the bg bitmap key 
 setSolids([wall, grampers, player])
@@ -188,24 +168,6 @@ w..ww....w
 w..wp....w
 w........w
 wwwwwwwwww`,
-  map`
-wwwwwwwww
-w.w.....w
-w.ww....w
-w.......w
-w.......w
-w....w..w
-w.......w
-w.......w
-wwwwwwwww`,
-  map``,
-  map``,
-  map``,
-  map``,
-  map``,
-  map``,
-  map``,
-  map``
 ]
 
 let chasingTime = 0;
@@ -233,7 +195,10 @@ const checkTouching = () => {
     if (levels[level]) {
       setMap(levels[level])
     } else {
-      alert("You win");
+      setMap(map`
+www
+wtw
+www`)
     }
   }
 }
