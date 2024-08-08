@@ -13,6 +13,7 @@ const grampers = "g"
 const wall = "w"
 const bg = "b"
 const trigger ="t"
+const youwin42 = "y"
 // Set the legand for sprites
 setLegend(
   [player, bitmap`
@@ -100,13 +101,28 @@ CCCCCCCCCCCCCCCC
 ................
 ................
 ................`],
+  [youwin42,bitmap`
+3333333333333333
+3323232223232333
+3322232323232333
+3332332223222333
+3333333333333333
+3233323233222333
+3232323333232333
+3222223233232333
+3333333333333333
+0000000000000000
+0000000000000000
+0000600000060000
+0000000000000000
+0006000000006000
+0006666666666000
+0000000000000000`],
 )
-// Set the background using the bg bitmap key
-setBackground(bg)
-  
+// Set the background using the bg bitmap key 
 setSolids([wall, grampers, player])
 
-let level = 1
+let level = 4
 const levels = [
   map`
 wwwwwwwwwwwwwwwwwwww
@@ -141,57 +157,55 @@ w..w....ww
 ww...w..tw
 wwwwwwwwww`,
   map`
+
+  map`,
+  map`
 wwwwwwwwww
-wp.......w
-w...w.ww.w
-wwwww.ww.w
-w.....ww.w
-wwwww.ww.w
+w...ww..gw
+w...ww...w
+w.w.ww...w
+w..www...w
+w..www...w
+w..ww....w
+w..w..p..w
+w..wwww..w
+w..wwww..w
+w....w...w
+w.t..w...w
+w....w...w
 w........w
-w.wwwwwwww
-w..g.....w
-wwwww.ww.w
-wwwww.ww.w
-wwwww.ww.w
-wwwww.ww.w
-wwwww.ww.w
-wwwww.ww.w
-..t......w`,
+w..w.....w
+w.ww...w.w
+wwwwwwwwww`,
   map`
-wwwwwwwww......wwwwwwww
-wwwwwwww..wwwwwww..twww
-wwwww......w....w..wwww
-wwwww..w.www....w....w.
-www...ww.......wwwww...
-www.......wwwwww.w.ww.w
-www.wwwwwww...........w
-www.wwwwwwwww.w..w.wwww
-wp.......wwww.wwww.w.w.
-www...w.wwwww......w.w.
-w.g....w......wwww.w...
-w.ww..w.....w.w......w.
-w..w.w...w..w.w.w.ww.w.
-ww.....w.wwww.w.w.ww.w.
-w..w....ww....w.w....w.
-ww...w...w.wwww.wwwwww.
-wwwwwwwwww.............`,
+wwwwwwwwww
+wt.......w
+w.w....w.w
+w...w..w.w
+w.g....w.w
+w......w.w
+w..ww....w
+w..wp....w
+w........w
+wwwwwwwwww`,
   map`
-.p.wwwwww
-.w.wwwwww
-...wwwwww
-.w.wwwwww
-.gwwwwwww
-.w.wwwwww
-.w.wwwwww
-.w.wwwwww
-...wwwwww
-.w.wwwwww
-...wwwwww
-.w.wwwwww
-...wwwwww
-.w.wwwwww
-.w.wwwwww
-.w......t`,
+wwwwwwwww
+w.w.....w
+w.ww....w
+w.......w
+w.......w
+w....w..w
+w.......w
+w.......w
+wwwwwwwww`,
+  map``,
+  map``,
+  map``,
+  map``,
+  map``,
+  map``,
+  map``,
+  map``
 ]
 
 let chasingTime = 0;
